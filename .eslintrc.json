@@ -15,6 +15,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "no-unused-vars": "off"
     }
 }
