@@ -1,7 +1,7 @@
 {
   "name": "spotify_playlist_guard",
   "version": "1.0.0",
-  "description": "A bot guard for your collaborative playlist",
+  "description": "A bot guard for your collaborative playlist on Spotify",
   "main": "index.js",
   "scripts": {
     "build": "babel src --extensions \".js, .ts\" --out-dir dist --copy-files --no-copy-ignored",
