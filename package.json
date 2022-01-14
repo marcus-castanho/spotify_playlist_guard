@@ -4,7 +4,7 @@
   "description": "A bot guard for your collaborative playlist on Spotify",
   "main": "server.js",
   "scripts": {
-    "build": "tsc --watch",
+    "build": "tsc",
     "start": "node dist/server.js",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
     "postinstall": "npm run build"
