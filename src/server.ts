@@ -18,7 +18,7 @@ app
 const botCronJob = cron.schedule('0 * * * * *', async () => {
   const allowedUsersIDs = ['31ronlkcdosn3x3kkuvez6vo2jyi'];
   const guardedPlaylistID = '5wkdAzv8ZArH5cyvXQTRYe';
-  const tracksToRemove : Track[] = [];
+  const tracksToRemove: any = [];
   const spotifyApiClient = new SpotifyWebApi(
     {
       clientId: process.env.SPOTIFY_CLIENT_ID,
