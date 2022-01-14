@@ -58,7 +58,7 @@ const botCronJob = cron.schedule('0 * * * * *', async () => {
 });
 
 router.get('/', async (req:Request, res:Response) => {
-  res.status(200).send('The bot in on!');
+  res.status(200).send('The Guard Bot is on!');
 });
 
 app.listen(process.env.PORT);
