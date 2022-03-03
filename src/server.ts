@@ -2,9 +2,9 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cron from "node-cron";
-import SpotifyWebApi from "spotify-web-api-node";
-import axios from "axios";
 import { Playlist } from "./@types/spotify-playlist-guard";
+import { ApiClientService } from "./services/api/api.service";
+import { SpotifyService } from "./services/spotify/spotify.service";
 
 dotenv.config();
 
@@ -13,27 +13,20 @@ const router = express.Router();
 
 app.use(express.json()).use(cors()).use("/", router);
 
-const axiosInstace = axios.create({
-  baseURL: process.env.API_URL,
-  timeout: 5000,
-  headers: { Authorization: process.env.API_CLIENT_KEY },
-  params: { id: process.env.API_CLIENT_ID },
+const apiService = new ApiClientService({
+  clientId: process.env.API_CLIENT_ID,
+  clientKey: process.env.API_CLIENT_KEY,
 });
 
-const spotifyApiClient = new SpotifyWebApi({
-  clientId: process.env.SPOTIFY_CLIENT_ID,
-  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-  redirectUri: `http://localhost:${process.env.PORT}/`,
-});
+const spotifyService = new SpotifyService();
+
+console.log(apiService, spotifyService);
+console.log(process.env.CALLBACK_URL as string);
 
 const botCronJob = cron.schedule(
   "0 * * * * *",
   async () => {
-    const playlists: Playlist[] = (
-      await axiosInstace.get("/playlists/findAll/active").catch((error) => {
-        throw error;
-      })
-    ).data;
+    const playlists = await apiService.getActivePlaylists();
 
     for (let i = 0; i < playlists.length; i++) {
       const playlist = playlists[i];
@@ -43,13 +36,13 @@ const botCronJob = cron.schedule(
       const newTracks: string[] = [];
       let currSnapshotId: string;
 
-      spotifyApiClient.setRefreshToken(refreshToken);
+      spotifyService.setRefreshToken(refreshToken);
 
-      await spotifyApiClient.refreshAccessToken().then((data) => {
-        spotifyApiClient.setAccessToken(data.body.access_token);
+      await spotifyService.refreshAccessToken().then((data) => {
+        spotifyService.setAccessToken(data.body.access_token);
       });
 
-      await spotifyApiClient.getPlaylist(id).then(
+      await spotifyService.getPlaylist(id).then(
         (data) => {
           const tracks = data.body.tracks.items;
           currSnapshotId = data.body.snapshot_id;
@@ -74,13 +67,15 @@ const botCronJob = cron.schedule(
         }
       );
 
+      console.log(currSnapshotId, snapshot_id);
+
       if (currSnapshotId !== snapshot_id) {
-        await spotifyApiClient.removeTracksFromPlaylist(
+        await spotifyService.removeTracksFromPlaylist(
           playlist.id,
           tracksToRemove
         );
 
-        await axiosInstace.patch(`/playlists/update/${playlist.id}`, {
+        await apiService.updatePlaylist(id, {
           snapshot_id: currSnapshotId,
           tracks: newTracks,
         });

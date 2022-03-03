@@ -1,3 +1,8 @@
+export interface Credentials {
+  clientId: string;
+  clientKey: string;
+}
+
 export interface User {
   country: string;
   display_name: string;
