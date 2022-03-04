@@ -29,7 +29,10 @@ export class ApiClientService {
     return playlists;
   }
 
-  async updatePlaylist(id: string, properties: Partial<Playlist>) {
+  async updatePlaylist(
+    id: string,
+    properties: Partial<Playlist>
+  ): Promise<void> {
     await this.httpClient.patch(`/playlists/update/${id}`, {
       ...properties,
     });

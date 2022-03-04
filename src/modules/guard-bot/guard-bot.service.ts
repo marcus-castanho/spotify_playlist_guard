@@ -28,7 +28,7 @@ export class GuardBotService {
     );
   }
 
-  async guardRoutine() {
+  async guardRoutine(): Promise<void> {
     const playlists = await this.apiService.getActivePlaylists();
 
     for (let i = 0; i < playlists.length; i++) {
@@ -58,7 +58,7 @@ export class GuardBotService {
     allowedUsers: string[],
     tracks: SpotifyApi.PlaylistTrackObject[],
     upToDateSnapshotId: string
-  ) {
+  ): Promise<void> {
     const { tracksToRemove, newTrackList } = this.getPlaylistsDiff(
       allowedUsers,
       tracks
