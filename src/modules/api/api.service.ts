@@ -8,6 +8,7 @@ export class ApiClientService {
   private readonly httpClient: AxiosInstance;
 
   constructor(credentials: Credentials) {
+    this.baseUrl = process.env.API_URL;
     this.clientId = credentials.clientId;
     this.clientKey = credentials.clientKey;
     this.httpClient = axios.create({
