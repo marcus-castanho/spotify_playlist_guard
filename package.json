@@ -2,15 +2,17 @@
   "name": "spotify_playlist_guard",
   "version": "1.0.0",
   "description": "A bot guard for your collaborative playlist on Spotify",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
-    "dev": "ts-node-dev --rs --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts"
+    "start": "node dist/main.js",
+    "dev": "ts-node-dev --rs --respawn --transpile-only --ignore-watch node_modules --no-notify src/main.ts"
   },
   "author": "Marcus",
   "license": "MIT",
   "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "@types/node": "^17.0.21",
     "@types/node-cron": "^3.0.1",
     "@types/spotify-web-api-node": "^5.0.6",
@@ -24,7 +26,9 @@
   },
   "dependencies": {
     "axios": "^0.26.0",
+    "cors": "^2.8.5",
     "dotenv": "^11.0.0",
+    "express": "^4.17.3",
     "node-cron": "^3.0.0",
     "spotify-web-api-node": "^5.0.2"
   }
