@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/main.js",
-    "dev": "ts-node-dev --rs --respawn --transpile-only --ignore-watch node_modules --no-notify src/main.ts"
+    "start": "node --require dotenv/config dist/main.js",
+    "dev": "ts-node-dev --rs --respawn --transpile-only --ignore-watch node_modules --no-notify --experimental-modules --require dotenv/config src/main.ts"
   },
   "author": "Marcus",
   "license": "MIT",

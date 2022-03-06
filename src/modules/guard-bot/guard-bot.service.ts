@@ -15,7 +15,7 @@ export class GuardBotService {
     this.apiService = apiService;
     this.spotifyService = spotifyService;
     this.cronJob = cron.schedule(
-      "0 * * * * *",
+      "30 * * * * *",
       async () => {
         try {
           await this.guardRoutine();

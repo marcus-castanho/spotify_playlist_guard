@@ -2,16 +2,25 @@ import { Connection, connect, Channel, Message } from "amqplib";
 
 export class RabbitMQService {
   private connection: Connection;
-  channel: Channel;
+  private channel: Channel;
+  private url = process.env.RABBITMQ_URL;
+  private queues = ["guard-bot-queue"];
 
-  constructor(private readonly url: string, private readonly queues: string[]) {
-    this.start()
+  private constructor() {}
+
+  public static async build(): Promise<RabbitMQService> {
+    const classInstance = new RabbitMQService();
+
+    await classInstance
+      .start()
       .then(() => {
-        this.registerQueues(queues);
+        classInstance.registerQueues(classInstance.queues);
       })
       .catch((error) => {
-        console.log(error);
+        throw error;
       });
+
+    return classInstance;
   }
 
   private async start(): Promise<void> {
@@ -31,6 +40,15 @@ export class RabbitMQService {
 
   publishInQueue(queue: string, message: string): void {
     this.channel.sendToQueue(queue, Buffer.from(message));
+
+    return;
+  }
+
+  async consume(queue: string, callback: (message: Message) => void) {
+    await this.channel.consume(queue, (message) => {
+      callback(message);
+      this.channel.ack(message);
+    });
 
     return;
   }

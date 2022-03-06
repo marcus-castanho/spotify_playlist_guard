@@ -3,14 +3,12 @@ import { Credentials, Playlist } from "src/@types/spotify-playlist-guard";
 
 export class ApiClientService {
   private readonly baseUrl: string;
-  private readonly clientId: string;
-  private readonly clientKey: string;
   private readonly httpClient: AxiosInstance;
+  private readonly clientId = process.env.API_CLIENT_ID;
+  private readonly clientKey = process.env.API_CLIENT_KEY;
 
-  constructor(credentials: Credentials) {
+  constructor() {
     this.baseUrl = process.env.API_URL;
-    this.clientId = credentials.clientId;
-    this.clientKey = credentials.clientKey;
     this.httpClient = axios.create({
       baseURL: this.baseUrl,
       timeout: 5000,

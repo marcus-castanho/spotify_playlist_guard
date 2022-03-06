@@ -1,10 +1,7 @@
-import "dotenv/config";
-import { serverController } from "./modules/server/server.module";
-import { guardBotService } from "./modules/guard-bot/guard-bot.module";
+import { appService } from "./modules/app.module";
 
-function bootsrap(): void {
-  const bot = guardBotService;
-  const server = serverController;
+async function bootsrap(): Promise<void> {
+  await appService.startModules();
 }
 
 bootsrap();
