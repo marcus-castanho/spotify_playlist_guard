@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { Credentials, Playlist } from "src/@types/spotify-playlist-guard";
+import { Playlist } from "src/@types/spotify-playlist-guard";
 
 export class ApiClientService {
   private readonly baseUrl: string;
