@@ -1,5 +1,7 @@
 import cron, { ScheduledTask } from "node-cron";
+import { Playlist } from "src/@types/spotify-playlist-guard";
 import { ApiClientService } from "../api/api.service";
+import { ProducerService } from "../rabbitmq/jobs/producer.service";
 import { SpotifyService } from "../spotify/spotify.service";
 
 export class GuardBotService {
@@ -7,7 +9,8 @@ export class GuardBotService {
 
   constructor(
     private readonly apiService: ApiClientService,
-    private readonly spotifyService: SpotifyService
+    private readonly spotifyService: SpotifyService,
+    private readonly producerService: ProducerService
   ) {
     this.apiService = apiService;
     this.spotifyService = spotifyService;
@@ -33,23 +36,26 @@ export class GuardBotService {
 
     for (let i = 0; i < playlists.length; i++) {
       const playlist = playlists[i];
-      const { id, allowed_userIds, owner, snapshot_id } = playlist;
-      const { refreshToken } = owner;
 
-      await this.spotifyService.setTokens(refreshToken);
+      this.producerService.runGuardBot(playlist);
+    }
+  }
 
-      const upToDatePlaylist = await this.spotifyService.getPlaylistData(id);
-      const upToDateSnapshotId = upToDatePlaylist.snapshot_id;
-      const tracksList = upToDatePlaylist.tracks.items;
+  async runGuard(playlist: Playlist) {
+    const { id, allowed_userIds, owner, snapshot_id } = playlist;
+    const { refreshToken } = owner;
+    await this.spotifyService.setTokens(refreshToken);
+    const upToDatePlaylist = await this.spotifyService.getPlaylistData(id);
+    const upToDateSnapshotId = upToDatePlaylist.snapshot_id;
+    const tracksList = upToDatePlaylist.tracks.items;
 
-      if (snapshot_id !== upToDateSnapshotId) {
-        await this.checkPlaylist(
-          id,
-          allowed_userIds,
-          tracksList,
-          upToDateSnapshotId
-        );
-      }
+    if (snapshot_id !== upToDateSnapshotId) {
+      await this.checkPlaylist(
+        id,
+        allowed_userIds,
+        tracksList,
+        upToDateSnapshotId
+      );
     }
   }
 
