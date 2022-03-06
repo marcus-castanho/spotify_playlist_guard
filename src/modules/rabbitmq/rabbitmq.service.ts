@@ -3,7 +3,7 @@ import { Connection, connect, Channel, Message } from "amqplib";
 export class RabbitMQService {
   private connection: Connection;
   private channel: Channel;
-  private url = process.env.RABBITMQ_URL;
+  private url = process.env.CLOUDAMQP_URL;
   private queues = ["guard-bot-queue"];
 
   private constructor() {}
