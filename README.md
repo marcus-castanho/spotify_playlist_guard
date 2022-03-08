@@ -26,7 +26,9 @@ The guard routine performed by the application consists of:
 
 Each guard routine performed for a playlist is published and consumed by a message queue.
 
-**Note:** At the day of the publication of this project, the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) does not provide a two-way communication protocol for access to state changes such as playlist update, player update, etc. Therefore, the alternative presented by this project, as described above, consists of periodic calls to the Spotify API in order to get changes in the state of the playlists. More discussions about this topic can be found in the resources:
+**Notes:** 
+- Ideally, taking into account the architecture of the solution, the producer and consumer of the queues should be hosted in differente servers to avoid loops to block the server instance, but for the current size of the project, these two parts of the application are being exectued in the same server.
+- At the day of the publication of this project, the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) does not provide a two-way communication protocol for access to state changes such as playlist update, player update, etc. Therefore, the alternative presented by this project, as described above, consists of periodic calls to the Spotify API in order to get changes in the state of the playlists. More discussions about this topic can be found in the resources:
 
 - [Spotify commnunity #4955299 - Access to websockets](https://community.spotify.com/t5/Spotify-for-Developers/Access-to-websockets/td-p/4955299);
 - [Github Issue #1558](https://github.com/spotify/web-api/issues/1558).
