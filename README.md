@@ -1,6 +1,6 @@
 # Spotify Playlist Guard
 This is a project of a bot guard for collaborative playlist on Spotify. Test the bot in action:
-- Use the [Test playlist](https://open.spotify.com/playlist/5wkdAzv8ZArH5cyvXQTRYe) by adding a song to it and wati for it to be removed once every minute;
+- Use the [Test playlist](https://open.spotify.com/playlist/5wkdAzv8ZArH5cyvXQTRYe) by adding a song to it and wait for it to be removed once every minute;
 - Check if the bot is up and running accessing its [status webpage](https://spotify-playlist-guard.herokuapp.com/).
 
 ## Context
@@ -19,29 +19,30 @@ This is the codebase for the bot server which performs a guard routine removing,
 The guard routine performed by the application consists of: 
 1. Retrieving the active playlists registered in the service from the [Spotify Playlist Guard API](https://github.com/marcus-castanho/spotify-playlist-guard-api);
 2. Fetch the current state of the playlist from the [Spotify Web API](https://developer.spotify.com/documentation/web-api/);
-3. Compare the two states of the playlists in terms of itd [snapshot_id](https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots) and tracks property 'added_by' which declares the related user;
+3. Compare the two states of the playlists in terms of itd [snapshot_id](https://developer.spotify.com/documentation/general/guides/working-with-playlists/#version-control-and-snapshots) and track's property 'added_by' which declares the related user;
 4. Once tracks added by unauthorized users are detected, the application:
-    1. Removes these tracks from the Spotify service ;
-    2. Updates it in the application API service.
+    1. Removes these tracks from the Spotify playlist ;
+    2. Updates it in the Spotify Playlist Guard API service.
 
 Each guard routine performed for a playlist is published and consumed by a message queue.
 
 **Notes:** 
-- Ideally, taking into account the architecture of the solution, the producer and consumer of the queues should be hosted in differente servers to avoid loops to block the server instance, but for the current size of the project, these two parts of the application are being exectued in the same server.
+- Ideally, taking into account the architecture of this application, the producer and consumer of the queues should be hosted in differente servers to avoid loops to block the server instance, but for the current size of the project, these two parts of the application are being exectued in the same server.
 - At the day of the publication of this project, the [Spotify Web API](https://developer.spotify.com/documentation/web-api/) does not provide a two-way communication protocol for access to state changes such as playlist update, player update, etc. Therefore, the alternative presented by this project, as described above, consists of periodic calls to the Spotify API in order to get changes in the state of the playlists. More discussions about this topic can be found in the resources:
 
-- [Spotify commnunity #4955299 - Access to websockets](https://community.spotify.com/t5/Spotify-for-Developers/Access-to-websockets/td-p/4955299);
-- [Github Issue #1558](https://github.com/spotify/web-api/issues/1558).
+    - [Spotify commnunity #4955299 - Access to websockets](https://community.spotify.com/t5/Spotify-for-Developers/Access-to-websockets/td-p/4955299);
+    - [Github Issue #1558](https://github.com/spotify/web-api/issues/1558).
 
 ### Technologies and libraries
 - [TypeScript](https://www.typescriptlang.org/) as language;
 - [Spotify Playlist Guard API](https://github.com/marcus-castanho/spotify-playlist-guard-api) to interact with the application data using [axios](https://axios-http.com/) as HTTP client;
 - [Spotify Web API](https://developer.spotify.com/documentation/web-api/) with [spotify-web-api-node](https://github.com/thelinmichael/spotify-web-api-node) as client wrapper;
+- [node-cron](https://github.com/node-cron/node-cron) for scheduling a cron job to execute the guard routine;
 - [RabbitMQ](https://www.rabbitmq.com/) for message queuing of the routine using [amqplib](https://github.com/amqp-node/amqplib) as client;
 - [Express](https://expressjs.com/) as web framework to expose a status endpoint of the application.
 - [Heroku](https://www.heroku.com/) as cloud server host;
 
-Also , in the development environment:
+Also , the tools used in the development environment:
 
 - [Docker](https://www.docker.com/) for a containerized instance of [RabbitMQ](https://hub.docker.com/_/rabbitmq).
 
