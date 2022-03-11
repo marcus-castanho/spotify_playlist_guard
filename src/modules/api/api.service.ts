@@ -13,7 +13,7 @@ export class ApiClientService {
       baseURL: this.baseUrl,
       timeout: 5000,
       headers: { Authorization: this.clientKey },
-      params: { id: this.clientId },
+      params: { CLIENT_ID : this.clientId },
     });
   }
 
