@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./public/images/guardBot-green-circle.png" width="120" alt="Guard Bot Logo" />
+  <img src="./public/images/guardBot-1db954-circle.png" width="120" alt="Guard Bot Logo" />
 </p>
 <p align="center">A guard bot for your collaborative playlists on Spotify.</p>
   
