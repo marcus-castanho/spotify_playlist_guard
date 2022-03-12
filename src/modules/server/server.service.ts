@@ -1,5 +1,6 @@
 import express, { Express, Request, Response, Router } from "express";
 import cors from "cors";
+import path from "path";
 
 export class ServerService {
   public readonly app: Express;
@@ -10,6 +11,9 @@ export class ServerService {
     this.router = express.Router();
 
     this.app.use(express.json()).use(cors()).use("/", this.router);
+    this.app.use("/", express.static("public"));
+
+    this.app.listen(process.env.PORT);
   }
 
   listen(port: string): void {

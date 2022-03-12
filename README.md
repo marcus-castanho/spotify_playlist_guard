@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="./public/images/guardBot-green-circle.png" width="120" alt="Guard Bot Logo" />
+</p>
+<p align="center">A guard bot for your collaborative playlists on Spotify.</p>
+  
 # Spotify Playlist Guard
 This is a project of a bot guard for collaborative playlist on Spotify. Test the bot in action:
 - Use the [Test playlist](https://open.spotify.com/playlist/5wkdAzv8ZArH5cyvXQTRYe) by adding a song to it and wait for it to be removed once every minute;

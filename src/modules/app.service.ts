@@ -5,7 +5,6 @@ import {
   ProducerService,
   RabbitMQService,
 } from "./rabbitmq/rabbitmq.module";
-import { ServerController } from "./server/server.controller";
 import { ServerService } from "./server/server.service";
 import { SpotifyService } from "./spotify/spotify.service";
 
@@ -17,7 +16,6 @@ export class AppService {
   private guardBotService: GuardBotService;
   private consumerService: ConsumerService;
   private serverService: ServerService;
-  private serverController: ServerController;
 
   constructor() {}
 
@@ -36,6 +34,5 @@ export class AppService {
       this.guardBotService
     );
     this.serverService = new ServerService();
-    this.serverController = new ServerController(this.serverService);
   }
 }
