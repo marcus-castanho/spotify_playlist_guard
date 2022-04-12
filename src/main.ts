@@ -1,7 +1,7 @@
 import { appService } from "./modules/app.module";
 
-async function bootsrap(): Promise<void> {
+async function bootstrap(): Promise<void> {
   await appService.startModules();
 }
 
-bootsrap();
+bootstrap();
