@@ -1,5 +1,5 @@
 import { Playlist } from "src/@types/spotify-playlist-guard";
-import { GuardBotService } from "src/modules/guard-bot/guard-bot.service";
+import { GuardBotService } from "src/modules/guard-bot";
 import { RabbitMQService } from "../rabbitmq.service";
 
 export class ConsumerService {

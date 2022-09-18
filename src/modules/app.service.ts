@@ -1,12 +1,8 @@
-import { ApiClientService } from "./api/api.service";
-import { GuardBotService } from "./guard-bot/guard-bot.module";
-import {
-  ConsumerService,
-  ProducerService,
-  RabbitMQService,
-} from "./rabbitmq/rabbitmq.module";
-import { ServerService } from "./server/server.service";
-import { SpotifyService } from "./spotify/spotify.service";
+import { ApiClientService } from "./api";
+import { GuardBotService } from "./guard-bot";
+import { ConsumerService, ProducerService, RabbitMQService } from "./rabbitmq";
+import { ServerService } from "./server";
+import { SpotifyService } from "./spotify";
 
 export class AppService {
   private rabbitMQService: RabbitMQService;

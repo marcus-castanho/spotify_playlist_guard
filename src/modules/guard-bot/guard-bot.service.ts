@@ -1,8 +1,8 @@
 import cron, { ScheduledTask } from "node-cron";
 import { Playlist } from "src/@types/spotify-playlist-guard";
-import { ApiClientService } from "../api/api.service";
+import { ApiClientService } from "../api";
 import { ProducerService } from "../rabbitmq/jobs/producer.service";
-import { SpotifyService } from "../spotify/spotify.service";
+import { SpotifyService } from "../spotify";
 
 export class GuardBotService {
   private readonly cronJob: ScheduledTask;
