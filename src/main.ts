@@ -6,7 +6,13 @@ import { AppService } from "./modules";
     .then((appInstance) => {
       appInstance.startApp();
     })
-    .catch(() => {
-      console.log("Failed to start the app.");
+    .catch((error) => {
+      console.log({
+        error: error.message,
+        message: "Failed to start the app. Retrying in 1 minute.",
+      });
+      setTimeout(() => {
+        bootstrap();
+      }, 60000);
     });
 })();
