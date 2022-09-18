@@ -5,6 +5,7 @@ import { ServerService } from "./server";
 import { SpotifyService } from "./spotify";
 
 export class AppService {
+  private static instance?: AppService;
   private rabbitMQService: RabbitMQService;
   private producerService: ProducerService;
   private apiService: ApiClientService;
@@ -15,8 +16,19 @@ export class AppService {
 
   constructor() {}
 
-  async startModules() {
+  static getInstance = () => {
+    if (!AppService.instance) {
+      AppService.instance = new AppService();
+    }
+    return AppService.instance;
+  };
+
+  async startAsyncModules() {
     this.rabbitMQService = await RabbitMQService.build();
+    return this;
+  }
+
+  async startApp() {
     this.producerService = new ProducerService(this.rabbitMQService);
     this.apiService = new ApiClientService();
     this.spotifyService = new SpotifyService();

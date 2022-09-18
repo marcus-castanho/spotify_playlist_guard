@@ -1,7 +1,12 @@
-import { appService } from "./modules/app.module";
+import { AppService } from "./modules";
 
-async function bootstrap(): Promise<void> {
-  await appService.startModules();
-}
-
-bootstrap();
+(function bootstrap() {
+  AppService.getInstance()
+    .startAsyncModules()
+    .then((appInstance) => {
+      appInstance.startApp();
+    })
+    .catch(() => {
+      console.log("Failed to start the app.");
+    });
+})();
