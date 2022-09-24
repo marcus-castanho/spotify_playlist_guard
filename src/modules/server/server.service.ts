@@ -1,13 +1,12 @@
 import express, { Express, Request, Response, Router } from 'express';
 import cors from 'cors';
-import path from 'path';
-import { serverConfig as config } from './config';
+import { ServerConfig } from './@types';
 
 export class ServerService {
     public readonly app: Express;
     public readonly router: Router;
 
-    constructor(private readonly serverConfig: typeof config) {
+    constructor(private readonly serverConfig: ServerConfig) {
         this.app = express();
         this.router = express.Router();
         this.setupMiddlewares();
