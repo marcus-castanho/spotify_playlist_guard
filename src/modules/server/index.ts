@@ -1,1 +1,2 @@
-export { ServerService } from "./server.service";
+export { ServerService } from './server.service';
+export { makeServer } from './factories';

@@ -1,22 +1,32 @@
-import express, { Express, Request, Response, Router } from "express";
-import cors from "cors";
-import path from "path";
+import express, { Express, Request, Response, Router } from 'express';
+import cors from 'cors';
+import path from 'path';
+import { serverConfig as config } from './config';
 
 export class ServerService {
-  public readonly app: Express;
-  public readonly router: Router;
+    public readonly app: Express;
+    public readonly router: Router;
 
-  constructor() {
-    this.app = express();
-    this.router = express.Router();
+    constructor(private readonly serverConfig: typeof config) {
+        this.app = express();
+        this.router = express.Router();
+        this.setupMiddlewares();
+        this.setupRoutes();
+        this.listen(this.serverConfig.port);
+    }
 
-    this.app.use(express.json()).use(cors()).use("/", this.router);
-    this.app.use("/", express.static("public"));
+    setupMiddlewares() {
+        this.app.use(express.json());
+        this.app.use(cors());
+        this.app.use(cors());
+    }
 
-    this.app.listen(process.env.PORT);
-  }
+    setupRoutes() {
+        this.app.use('/', this.router);
+        this.app.use('/', express.static('public'));
+    }
 
-  listen(port: string): void {
-    this.app.listen(port);
-  }
+    listen(port: string) {
+        this.app.listen(port);
+    }
 }

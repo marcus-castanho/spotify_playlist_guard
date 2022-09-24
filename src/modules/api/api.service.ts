@@ -6,7 +6,7 @@ export class ApiClientService {
     private readonly httpClient: AxiosInstance;
 
     constructor(private readonly clientConfig: AxiosRequestConfig) {
-        this.httpClient = axios.create(clientConfig);
+        this.httpClient = axios.create(this.clientConfig);
     }
 
     async getActivePlaylists(): Promise<Playlist[]> {

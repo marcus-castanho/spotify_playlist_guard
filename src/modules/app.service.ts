@@ -1,7 +1,7 @@
 import { ApiClientService, makeApiClient } from './api';
 import { GuardBotService } from './guard-bot';
 import { ConsumerService, ProducerService, RabbitMQService } from './rabbitmq';
-import { ServerService } from './server';
+import { makeServer, ServerService } from './server';
 import { makeSpotifyApiClient, SpotifyService } from './spotify';
 
 export class AppService {
@@ -41,6 +41,6 @@ export class AppService {
             this.rabbitMQService,
             this.guardBotService,
         );
-        this.serverService = new ServerService();
+        this.serverService = makeServer();
     }
 }

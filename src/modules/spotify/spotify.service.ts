@@ -2,7 +2,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import { Credentials } from './@types';
 
 export class SpotifyService extends SpotifyWebApi {
-    constructor(private readonly clientConfig: Credentials) {
+    constructor(clientConfig: Credentials) {
         super(clientConfig);
     }
 
