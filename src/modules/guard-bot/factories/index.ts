@@ -1,0 +1,1 @@
+export { makeGuardBot } from './makeGuardBot';

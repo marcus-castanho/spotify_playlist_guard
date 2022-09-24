@@ -6,7 +6,7 @@ import { AppService } from './modules';
         .then((appInstance) => {
             appInstance
                 .startApp()
-                .then(() => console.log('Application running.'));
+                .then(() => console.log('Application is running.'));
         })
         .catch((error) => {
             console.log({

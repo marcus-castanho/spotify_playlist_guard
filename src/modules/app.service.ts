@@ -1,15 +1,11 @@
-import { ApiClientService, makeApiClient } from './api';
-import { GuardBotService } from './guard-bot';
+import { GuardBotService, makeGuardBot } from './guard-bot';
 import { ConsumerService, ProducerService, RabbitMQService } from './rabbitmq';
 import { makeServer, ServerService } from './server';
-import { makeSpotifyApiClient, SpotifyService } from './spotify';
 
 export class AppService {
     private static instance?: AppService;
     private rabbitMQService: RabbitMQService;
     private producerService: ProducerService;
-    private apiService: ApiClientService;
-    private spotifyService: SpotifyService;
     private guardBotService: GuardBotService;
     private consumerService: ConsumerService;
     private serverService: ServerService;
@@ -30,13 +26,7 @@ export class AppService {
 
     async startApp() {
         this.producerService = new ProducerService(this.rabbitMQService);
-        this.apiService = makeApiClient();
-        this.spotifyService = makeSpotifyApiClient();
-        this.guardBotService = new GuardBotService(
-            this.apiService,
-            this.spotifyService,
-            this.producerService,
-        );
+        this.guardBotService = makeGuardBot(this.producerService);
         this.consumerService = await ConsumerService.build(
             this.rabbitMQService,
             this.guardBotService,
