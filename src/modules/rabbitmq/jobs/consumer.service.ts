@@ -5,6 +5,7 @@ import { RabbitMQService } from '../rabbitmq.service';
 import { consumerConfig as config } from '../config';
 
 export class ConsumerService {
+    private static instance?: ConsumerService;
     private readonly queue: QueueOptions;
 
     private constructor(
@@ -19,11 +20,13 @@ export class ConsumerService {
         rabbitMQService: RabbitMQService,
         guardBotService: GuardBotService,
     ) {
+        if (ConsumerService.instance) return ConsumerService.instance;
         const classInstance = new ConsumerService(
             config,
             rabbitMQService,
             guardBotService,
         );
+        ConsumerService.instance = classInstance;
 
         await classInstance.runGuardBotJob();
 
