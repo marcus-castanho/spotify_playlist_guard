@@ -4,6 +4,7 @@ import { ApiClientService } from '../api';
 import { ProducerService } from '../rabbitmq/jobs/producer.service';
 import { SpotifyService } from '../spotify';
 import { SchedulerConfig } from './@types';
+import { TrackIdentifier } from '../spotify/@types';
 
 export class GuardBotService {
     private cronJob: ScheduledTask;
@@ -68,7 +69,7 @@ export class GuardBotService {
         tracks: SpotifyApi.PlaylistTrackObject[],
         upToDateSnapshotId: string,
     ) {
-        const { tracksToRemove, newTrackList } = this.getPlaylistsDiff(
+        const { tracksToRemove, newTrackIdList } = this.getPlaylistsDiff(
             allowedUsers,
             tracks,
         );
@@ -82,7 +83,7 @@ export class GuardBotService {
 
         await this.apiService.updatePlaylist(id, {
             snapshot_id: upToDateSnapshotId,
-            tracks: newTrackList,
+            tracks: newTrackIdList,
         });
     }
 
@@ -90,8 +91,8 @@ export class GuardBotService {
         allowedUsers: string[],
         tracks: SpotifyApi.PlaylistTrackObject[],
     ) {
-        const tracksToRemove: { uri: string }[] = [];
-        const newTrackList: string[] = [];
+        const tracksToRemove: TrackIdentifier[] = [];
+        const newTrackIdList: string[] = [];
 
         tracks.forEach((track) => {
             const userId = track.added_by.id;
@@ -102,13 +103,13 @@ export class GuardBotService {
                 return;
             }
 
-            newTrackList.push(trackId);
+            newTrackIdList.push(trackId);
             return;
         });
 
         return {
             tracksToRemove,
-            newTrackList,
+            newTrackIdList,
         };
     }
 }
