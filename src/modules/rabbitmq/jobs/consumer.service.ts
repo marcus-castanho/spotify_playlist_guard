@@ -1,6 +1,6 @@
 import { Playlist } from '../../api/@types';
 import { GuardBotService } from 'src/modules/guard-bot';
-import { QueueOptions } from '../@types';
+import { ConsumerConfig, QueueOptions } from '../@types';
 import { RabbitMQService } from '../rabbitmq.service';
 import { consumerConfig as config } from '../config';
 
@@ -9,7 +9,7 @@ export class ConsumerService {
     private readonly queue: QueueOptions;
 
     private constructor(
-        consumerConfig: typeof config,
+        consumerConfig: ConsumerConfig,
         private readonly rabbitMQService: RabbitMQService,
         private readonly guardBotService: GuardBotService,
     ) {

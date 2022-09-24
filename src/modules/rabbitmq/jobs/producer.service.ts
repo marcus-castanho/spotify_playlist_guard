@@ -1,12 +1,12 @@
 import { Playlist } from '../../api/@types';
 import { RabbitMQService } from '../rabbitmq.service';
-import { producerConfig as config } from '../config';
+import { ProducerConfig } from '../@types';
 
 export class ProducerService {
     private readonly queue: string;
 
     constructor(
-        producerConfig: typeof config,
+        producerConfig: ProducerConfig,
         private readonly rabbitMQService: RabbitMQService,
     ) {
         this.queue = producerConfig.queue;

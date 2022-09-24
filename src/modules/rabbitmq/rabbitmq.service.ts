@@ -1,5 +1,5 @@
 import { Connection, connect, Channel, Message } from 'amqplib';
-import { brokerConfig as config } from './config';
+import { BrokerConfig } from './@types';
 
 export class RabbitMQService {
     private static instance?: RabbitMQService;
@@ -11,7 +11,7 @@ export class RabbitMQService {
         private readonly queues: string[],
     ) {}
 
-    public static async build(brokerConfig: typeof config) {
+    public static async build(brokerConfig: BrokerConfig) {
         const { url, queues } = brokerConfig;
 
         if (RabbitMQService.instance) return RabbitMQService.instance;
