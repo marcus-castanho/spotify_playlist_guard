@@ -6,17 +6,19 @@ export class SpotifyService extends SpotifyWebApi {
         super(clientConfig);
     }
 
-    async setTokens(refreshToken: string): Promise<void> {
+    async setTokens(refreshToken: string) {
         this.setRefreshToken(refreshToken);
 
-        await this.refreshAccessToken().then((data) => {
-            this.setAccessToken(data.body.access_token);
-        });
+        await this.refreshAccessToken()
+            .then((data) => {
+                this.setAccessToken(data.body.access_token);
+            })
+            .catch((error) => {
+                throw error;
+            });
     }
 
-    async getPlaylistData(
-        id: string,
-    ): Promise<SpotifyApi.SinglePlaylistResponse> {
+    async getPlaylistData(id: string) {
         const playlist = await this.getPlaylist(id).catch((error) => {
             throw error;
         });
