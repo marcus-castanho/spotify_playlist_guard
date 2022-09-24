@@ -3,14 +3,10 @@ import { Playlist } from './@types';
 import { routes as apiRoutes } from './config';
 
 export class ApiClientService {
-    private readonly httpClient: AxiosInstance;
-
     constructor(
-        private readonly clientConfig: AxiosRequestConfig,
+        private readonly httpClient: AxiosInstance,
         private readonly routes: typeof apiRoutes,
-    ) {
-        this.httpClient = axios.create(this.clientConfig);
-    }
+    ) {}
 
     async getActivePlaylists() {
         const { getAllActivePlaylists } = this.routes;
