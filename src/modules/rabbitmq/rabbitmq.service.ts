@@ -1,55 +1,55 @@
-import { Connection, connect, Channel, Message } from "amqplib";
+import { Connection, connect, Channel, Message } from 'amqplib';
+import { brokerConfig as config } from './config';
 
 export class RabbitMQService {
-  private connection: Connection;
-  private channel: Channel;
-  private url = process.env.CLOUDAMQP_URL;
-  private queues = ["guard-bot-queue"];
+    private static instance?: RabbitMQService;
+    private connection: Connection;
+    private channel: Channel;
 
-  private constructor() {}
+    private constructor(
+        private readonly url: string,
+        private readonly queues: string[],
+    ) {}
 
-  public static async build(): Promise<RabbitMQService> {
-    const classInstance = new RabbitMQService();
+    public static async build(brokerConfig: typeof config) {
+        const { url, queues } = brokerConfig;
 
-    await classInstance
-      .start()
-      .then(() => {
-        classInstance.registerQueues(classInstance.queues);
-      })
-      .catch((error) => {
-        throw error;
-      });
+        if (RabbitMQService.instance) return RabbitMQService.instance;
 
-    return classInstance;
-  }
+        const classInstance = new RabbitMQService(url, queues);
+        RabbitMQService.instance = classInstance;
 
-  private async start(): Promise<void> {
-    this.connection = await connect(this.url);
-    this.channel = await this.connection.createChannel();
+        await classInstance.start().then(() => {
+            classInstance.registerQueues().catch((error) => {
+                throw error;
+            });
+        });
 
-    return;
-  }
-
-  private async registerQueues(queues: string[]): Promise<void> {
-    for (let i = 0; i < queues.length; i++) {
-      await this.channel.assertQueue(queues[i], { durable: false });
+        return classInstance;
     }
 
-    return;
-  }
+    private async start() {
+        this.connection = await connect(this.url).catch((error) => {
+            throw error;
+        });
+        this.channel = await this.connection.createChannel();
+    }
 
-  publishInQueue(queue: string, message: string): void {
-    this.channel.sendToQueue(queue, Buffer.from(message));
+    private async registerQueues() {
+        const { queues } = this;
+        for (let i = 0; i < queues.length; i++) {
+            await this.channel.assertQueue(queues[i], { durable: false });
+        }
+    }
 
-    return;
-  }
+    publishInQueue(queue: string, message: string) {
+        this.channel.sendToQueue(queue, Buffer.from(message));
+    }
 
-  async consume(queue: string, callback: (message: Message) => void) {
-    await this.channel.consume(queue, (message) => {
-      callback(message);
-      this.channel.ack(message);
-    });
-
-    return;
-  }
+    async consume(queue: string, callback: (message: Message) => void) {
+        await this.channel.consume(queue, (message) => {
+            callback(message);
+            this.channel.ack(message);
+        });
+    }
 }
