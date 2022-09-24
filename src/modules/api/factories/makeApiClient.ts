@@ -1,6 +1,6 @@
 import { ApiClientService } from '../api.service';
-import { clientConfig } from '../config';
+import { clientConfig, routes } from '../config';
 
-export const makeApiClient = (): ApiClientService => {
-    return new ApiClientService(clientConfig);
+export const makeApiClient = () => {
+    return new ApiClientService(clientConfig, routes);
 };

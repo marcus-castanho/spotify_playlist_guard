@@ -1,4 +1,4 @@
-import { Playlist } from 'src/@types/spotify-playlist-guard';
+import { Playlist } from '../../api/@types';
 import { RabbitMQService } from '../rabbitmq.service';
 import { producerConfig as config } from '../config';
 

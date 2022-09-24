@@ -1,5 +1,5 @@
 import cron, { ScheduledTask, ScheduleOptions } from 'node-cron';
-import { Playlist } from 'src/@types/spotify-playlist-guard';
+import { Playlist } from '../api/@types';
 import { ApiClientService } from '../api';
 import { ProducerService } from '../rabbitmq/jobs/producer.service';
 import { SpotifyService } from '../spotify';
@@ -24,7 +24,7 @@ export class GuardBotService {
         );
     }
 
-    async guardRoutine(): Promise<void> {
+    async guardRoutine() {
         try {
             const playlists = await this.apiService
                 .getActivePlaylists()
@@ -65,7 +65,7 @@ export class GuardBotService {
         allowedUsers: string[],
         tracks: SpotifyApi.PlaylistTrackObject[],
         upToDateSnapshotId: string,
-    ): Promise<void> {
+    ) {
         const { tracksToRemove, newTrackList } = this.getPlaylistsDiff(
             allowedUsers,
             tracks,

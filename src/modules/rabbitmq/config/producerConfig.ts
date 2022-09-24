@@ -1,4 +1,4 @@
-import { ProducerConfig, QueueOptions } from '../@types';
+import { ProducerConfig } from '../@types';
 
 export const producerConfig: ProducerConfig = {
     queue: 'guard-bot-queue',
