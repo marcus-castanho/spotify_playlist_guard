@@ -1,1 +1,2 @@
-export { ApiClientService } from "./api.service";
+export { ApiClientService } from './api.service';
+export { makeApiClient } from './factories';
