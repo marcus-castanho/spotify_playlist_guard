@@ -1,6 +1,7 @@
-import { ScheduleOptions } from 'node-cron';
+import { SchedulerConfig } from "../@types";
 
-export const schedulerConfig: ScheduleOptions = {
+export const schedulerConfig: SchedulerConfig = {
+    cronExpression: '0 * * * * *',
     scheduled: true,
     timezone: 'America/Sao_Paulo',
 };

@@ -1,14 +1,15 @@
-import cron, { ScheduledTask, ScheduleOptions } from 'node-cron';
+import cron, { ScheduledTask } from 'node-cron';
 import { Playlist } from '../api/@types';
 import { ApiClientService } from '../api';
 import { ProducerService } from '../rabbitmq/jobs/producer.service';
 import { SpotifyService } from '../spotify';
+import { SchedulerConfig } from './@types';
 
 export class GuardBotService {
     private cronJob: ScheduledTask;
 
     constructor(
-        private readonly schedulerConfig: ScheduleOptions,
+        private readonly schedulerConfig: SchedulerConfig,
         private readonly apiService: ApiClientService,
         private readonly spotifyService: SpotifyService,
         private readonly producerService: ProducerService,
@@ -17,10 +18,11 @@ export class GuardBotService {
     }
 
     setUpScheduler() {
+        const { cronExpression, ...schedulerConfig } = this.schedulerConfig;
         this.cronJob = cron.schedule(
-            '0 * * * * *',
+            cronExpression,
             () => this.guardRoutine(),
-            this.schedulerConfig,
+            schedulerConfig,
         );
     }
 
@@ -87,8 +89,8 @@ export class GuardBotService {
     getPlaylistsDiff(
         allowedUsers: string[],
         tracks: SpotifyApi.PlaylistTrackObject[],
-    ): any {
-        const tracksToRemove: any[] = [];
+    ) {
+        const tracksToRemove: { uri: string }[] = [];
         const newTrackList: string[] = [];
 
         tracks.forEach((track) => {
