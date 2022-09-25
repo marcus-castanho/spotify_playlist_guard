@@ -1,11 +1,12 @@
-import { Playlist } from '../../api/@types';
 import { GuardBotService } from 'src/modules/guard-bot';
+import { Playlist } from '../../api/@types';
 import { ConsumerConfig, QueueOptions } from '../@types';
 import { RabbitMQService } from '../rabbitmq.service';
 import { consumerConfig as config } from '../config';
 
 export class ConsumerService {
     private static instance?: ConsumerService;
+
     private readonly queue: QueueOptions;
 
     private constructor(

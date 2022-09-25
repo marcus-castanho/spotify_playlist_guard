@@ -1,4 +1,4 @@
-import { BrokerConfig } from "../@types";
+import { BrokerConfig } from '../@types';
 
 export const brokerConfig: BrokerConfig = {
     url: process.env.CLOUDAMQP_URL,

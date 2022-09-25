@@ -5,9 +5,7 @@
         "ecmaVersion": 13,
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint-plugin"
-    ],
+    "plugins": ["@typescript-eslint", "prettier", "import"],
     "extends": [
         "airbnb-base",
         "plugin:@typescript-eslint/recommended",
@@ -21,11 +19,36 @@
     },
     "rules": {
         "linebreak-style": "off",
-        "no-unused-vars": "off",
         "no-console": "warn",
+        "no-plusplus": "off",
+        "camelcase": "off",
+        "class-methods-use-this": "warn",
+        "no-use-before-define": "off",
         "@typescript-eslint/interface-name-prefix": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "import/prefer-default-export": "off",
+        "import/no-unresolved": "warn",
+        "no-useless-constructor": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "ts": "never"
+            }
+        ]
+    },
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true,
+                "project": "path/to/folder"
+            }
+        }
     }
 }

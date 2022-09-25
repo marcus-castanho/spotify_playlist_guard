@@ -3,7 +3,9 @@ import { BrokerConfig } from './@types';
 
 export class RabbitMQService {
     private static instance?: RabbitMQService;
+
     private connection: Connection;
+
     private channel: Channel;
 
     private constructor(
@@ -38,6 +40,7 @@ export class RabbitMQService {
     private async registerQueues() {
         const { queues } = this;
         for (let i = 0; i < queues.length; i++) {
+            // eslint-disable-next-line no-await-in-loop
             await this.channel.assertQueue(queues[i], { durable: false });
         }
     }

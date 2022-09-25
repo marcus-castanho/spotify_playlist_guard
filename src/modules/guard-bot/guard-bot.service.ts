@@ -104,7 +104,6 @@ export class GuardBotService {
             }
 
             newTrackIdList.push(trackId);
-            return;
         });
 
         return {

@@ -1,37 +1,42 @@
 {
-  "name": "spotify_playlist_guard",
-  "version": "1.0.0",
-  "description": "A bot guard for your collaborative playlist on Spotify",
-  "main": "main.js",
-  "scripts": {
-    "build": "tsc",
-    "start": "node --require dotenv/config dist/main.js",
-    "dev": "ts-node-dev --rs --respawn --ignore-watch node_modules --no-notify --experimental-modules --require dotenv/config src/main.ts"
-  },
-  "author": "Marcus",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/amqplib": "^0.8.2",
-    "@types/cors": "^2.8.12",
-    "@types/express": "^4.17.13",
-    "@types/node": "^17.0.21",
-    "@types/node-cron": "^3.0.1",
-    "@types/spotify-web-api-node": "^5.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.9.1",
-    "@typescript-eslint/parser": "^5.9.1",
-    "eslint": "^8.6.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.2",
-    "ts-node-dev": "^1.1.8",
-    "typescript": "^4.5.4"
-  },
-  "dependencies": {
-    "amqplib": "^0.8.0",
-    "axios": "^0.26.0",
-    "cors": "^2.8.5",
-    "dotenv": "^11.0.0",
-    "express": "^4.17.3",
-    "node-cron": "^3.0.0",
-    "spotify-web-api-node": "^5.0.2"
-  }
+    "name": "spotify_playlist_guard",
+    "version": "1.0.0",
+    "description": "A bot guard for your collaborative playlist on Spotify",
+    "main": "main.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node --require dotenv/config dist/main.js",
+        "dev": "ts-node-dev --rs --respawn --ignore-watch node_modules --no-notify --experimental-modules --require dotenv/config src/main.ts",
+        "lint": "eslint \"src/**/*.ts\" --fix --max-warnings 0"
+    },
+    "author": "Marcus",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/amqplib": "^0.8.2",
+        "@types/cors": "^2.8.12",
+        "@types/express": "^4.17.13",
+        "@types/node": "^17.0.21",
+        "@types/node-cron": "^3.0.1",
+        "@types/spotify-web-api-node": "^5.0.6",
+        "@typescript-eslint/eslint-plugin": "^5.9.1",
+        "@typescript-eslint/parser": "^5.9.1",
+        "eslint": "^8.6.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-import-resolver-typescript": "^3.5.1",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "prettier": "^2.7.1",
+        "ts-node-dev": "^1.1.8",
+        "typescript": "^4.5.4"
+    },
+    "dependencies": {
+        "amqplib": "^0.8.0",
+        "axios": "^0.26.0",
+        "cors": "^2.8.5",
+        "dotenv": "^11.0.0",
+        "express": "^4.17.3",
+        "node-cron": "^3.0.0",
+        "spotify-web-api-node": "^5.0.2"
+    }
 }

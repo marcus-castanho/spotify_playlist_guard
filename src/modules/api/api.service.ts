@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { AxiosInstance } from 'axios';
 import { Playlist } from './@types';
 import { routes as apiRoutes } from './config';
 

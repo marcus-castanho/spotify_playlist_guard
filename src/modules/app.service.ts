@@ -1,14 +1,15 @@
-import { ConsumerService, ProducerService, RabbitMQService } from './rabbitmq';
+import { ConsumerService, RabbitMQService } from './rabbitmq';
 import { makeBroker, makeConsumer } from './rabbitmq/factories';
 import { makeServer, ServerService } from './server';
 
 export class AppService {
     private static instance?: AppService;
-    private rabbitMQService: RabbitMQService;
-    private consumerService: ConsumerService;
-    private serverService: ServerService;
 
-    constructor() {}
+    private rabbitMQService: RabbitMQService;
+
+    private consumerService: ConsumerService;
+
+    private serverService: ServerService;
 
     static getInstance = () => {
         if (!AppService.instance) {

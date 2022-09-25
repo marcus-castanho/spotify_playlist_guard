@@ -1,4 +1,4 @@
-import { SchedulerConfig } from "../@types";
+import { SchedulerConfig } from '../@types';
 
 export const schedulerConfig: SchedulerConfig = {
     cronExpression: '0 * * * * *',
