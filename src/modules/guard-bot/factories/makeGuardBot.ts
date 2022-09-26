@@ -1,3 +1,4 @@
+import { makeLogger } from '../../logger';
 import { makeApiClient } from '../../api';
 import { ProducerService } from '../../rabbitmq';
 import { makeSpotifyApiClient } from '../../spotify';
@@ -10,5 +11,6 @@ export const makeGuardBot = (producerService: ProducerService) => {
         makeApiClient(),
         makeSpotifyApiClient(),
         producerService,
+        makeLogger('guard-bot'),
     );
 };

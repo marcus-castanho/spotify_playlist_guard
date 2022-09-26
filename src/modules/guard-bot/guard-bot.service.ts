@@ -5,6 +5,7 @@ import { ProducerService } from '../rabbitmq/jobs/producer.service';
 import { SpotifyService } from '../spotify';
 import { SchedulerConfig } from './@types';
 import { TrackIdentifier } from '../spotify/@types';
+import { LoggerService } from '../logger';
 
 export class GuardBotService {
     private cronJob: ScheduledTask;
@@ -14,6 +15,7 @@ export class GuardBotService {
         private readonly apiService: ApiClientService,
         private readonly spotifyService: SpotifyService,
         private readonly producerService: ProducerService,
+        private readonly loggerService: LoggerService,
     ) {
         this.setUpScheduler();
     }
@@ -40,8 +42,11 @@ export class GuardBotService {
 
                 this.producerService.runGuardBot(playlist);
             }
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            this.loggerService.log('%j', {
+                error: error.message,
+                message: 'Failed to fetch the api',
+            });
         }
     }
 
