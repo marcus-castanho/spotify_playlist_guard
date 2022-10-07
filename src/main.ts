@@ -6,9 +6,9 @@ import { AppService } from './modules';
     AppService.getInstance()
         .startAsyncModules()
         .then((appInstance) => {
-            appInstance
-                .startApp()
-                .then(() => logger('Application is running.'));
+            appInstance.startApp().then(() => {
+                logger('Application is running.');
+            });
         })
         .catch((error) => {
             logger('%j', {
