@@ -19,7 +19,6 @@
         "noFallthroughCasesInSwitch": false,
         "lib": ["ES6"],
         "esModuleInterop": true,
-        "rootDir": "src",
         "typeRoots": ["./node_modules/@types", ".src/@types"],
         "resolveJsonModule": true,
         "allowJs": true,
