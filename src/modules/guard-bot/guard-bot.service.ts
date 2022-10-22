@@ -74,10 +74,8 @@ export class GuardBotService {
         tracks: SpotifyApi.PlaylistTrackObject[],
         upToDateSnapshotId: string,
     ) {
-        const { tracksToRemove, newTrackIdList } = this.getPlaylistsDiff(
-            allowedUsers,
-            tracks,
-        );
+        const { tracksToRemove, newTrackIdList } =
+            GuardBotService.getPlaylistsDiff(allowedUsers, tracks);
 
         if (tracksToRemove.length > 0) {
             await this.spotifyService.removeTracksFromPlaylist(
@@ -92,7 +90,7 @@ export class GuardBotService {
         });
     }
 
-    getPlaylistsDiff(
+    private static getPlaylistsDiff(
         allowedUsers: string[],
         tracks: SpotifyApi.PlaylistTrackObject[],
     ) {

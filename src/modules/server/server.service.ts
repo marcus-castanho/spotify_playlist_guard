@@ -3,9 +3,9 @@ import cors from 'cors';
 import { ServerConfig } from './@types';
 
 export class ServerService {
-    public readonly app: Express;
+    private readonly app: Express;
 
-    public readonly router: Router;
+    private readonly router: Router;
 
     constructor(private readonly serverConfig: ServerConfig) {
         this.app = express();
@@ -17,7 +17,7 @@ export class ServerService {
 
     setupMiddlewares() {
         this.app.use(express.json());
-        this.app.use(cors());
+        this.app.use(cors({ ...this.serverConfig.corsOptions }));
     }
 
     setupRoutes() {
