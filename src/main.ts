@@ -14,6 +14,7 @@ import { AppService } from './modules';
             logger('%j', {
                 error: error.message,
                 message: 'Failed to start the app. Retrying in 1 minute.',
+                stack: error.stack,
             });
             setTimeout(() => {
                 bootstrap();
