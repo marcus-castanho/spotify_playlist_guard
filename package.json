@@ -7,7 +7,9 @@
         "build": "tsc",
         "start": "node --require dotenv/config dist/main",
         "dev": "nodemon --require dotenv/config src/main.ts",
-        "lint": "eslint \"src/**/*.ts\" --fix --max-warnings 0"
+        "lint": "eslint \"src/**/*.ts\" --fix --max-warnings 0",
+        "enable-hooks": "husky install",
+        "disable-hooks": "husky uninstall"
     },
     "author": "Marcus",
     "license": "MIT",
@@ -26,6 +28,7 @@
         "eslint-import-resolver-typescript": "^3.5.1",
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-prettier": "^4.2.1",
+        "husky": "^8.0.3",
         "nodemon": "^2.0.20",
         "prettier": "^2.7.1",
         "ts-node": "^10.9.1",
