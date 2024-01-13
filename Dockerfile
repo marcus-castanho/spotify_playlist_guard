@@ -11,6 +11,8 @@ WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package*.json ./
+CMD [ "npm", "run", "dev" ]
+
 
 FROM node:16 AS production
 ARG NODE_ENV=production
@@ -21,4 +23,4 @@ COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/package*.json ./
 RUN npm ci --only=production
 EXPOSE 3000
-RUN npm run start
+CMD [ "npm", "run", "start" ]

@@ -5,7 +5,6 @@ services:
         build:
             context: .
             target: development
-        command: npm run dev
         volumes:
             - .:/usr/src/app
         ports:
