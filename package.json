@@ -7,7 +7,8 @@
         "build": "tsc",
         "start": "node --require dotenv/config dist/main",
         "dev": "nodemon --require dotenv/config src/main.ts",
-        "lint": "eslint \"src/**/*.ts\" --fix --max-warnings 0",
+        "lint:fix": "eslint \"src/**/*.ts\" --fix --max-warnings 0",
+        "lint:check": "eslint \"src/**/*.ts\" --max-warnings 0",
         "enable-hooks": "husky install",
         "disable-hooks": "husky uninstall"
     },
