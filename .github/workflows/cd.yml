@@ -34,3 +34,4 @@ jobs:
               uses: google-github-actions/deploy-appengine@v2
               with:
                   deliverables: 'app.yaml'
+                  image_url: us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/spotify-playlist-guard/spotify-playlist-guard-main:latest
