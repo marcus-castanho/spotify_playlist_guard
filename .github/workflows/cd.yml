@@ -31,4 +31,4 @@ jobs:
                   tags: us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/spotify-playlist-guard/spotify-playlist-guard-main:latest
 
             - name: Deploy to App Engine
-              run: gcloud app deploy --quiet --format json app.yaml --image-url=us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/spotify-playlist-guard/spotify-playlist-guard-main:latest --promote
+              run: gcloud app deploy --quiet --format json .gcp/app.yaml --image-url=us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/spotify-playlist-guard/spotify-playlist-guard-main:latest --promote
