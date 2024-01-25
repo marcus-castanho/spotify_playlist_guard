@@ -30,5 +30,21 @@ jobs:
                   push: true
                   tags: us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/spotify-playlist-guard/spotify-playlist-guard-main:latest
 
+            - name: Populate app.yml env secrets
+              uses: 73h/gae-app-yaml-replace-env-variables@v0.3
+              env:
+                  APP_SECRET_APP_URL: ${{ secrets.APP_SECRET_APP_URL }}
+                  APP_SECRET_API_URL: ${{ secrets.APP_SECRET_API_URL }}
+                  APP_SECRET_API_CLIENT_ID: ${{ secrets.APP_SECRET_API_CLIENT_ID }}
+                  APP_SECRET_API_CLIENT_KEY: ${{ secrets.APP_SECRET_API_CLIENT_KEY }}
+                  APP_SECRET_SPOTIFY_CLIENT_ID: ${{ secrets.APP_SECRET_SPOTIFY_CLIENT_ID }}
+                  APP_SECRET_SPOTIFY_CLIENT_SECRET: ${{ secrets.APP_SECRET_SPOTIFY_CLIENT_SECRET }}
+                  APP_SECRET_CALLBACK_URL: ${{ secrets.APP_SECRET_CALLBACK_URL }}
+                  APP_SECRET_CLOUDAMQP_URL: ${{ secrets.APP_SECRET_CLOUDAMQP_URL }}
+                  APP_SECRET_DEBUG: ${{ secrets.APP_SECRET_DEBUG }}
+
+              with:
+                  app_yaml_path: '.gcp/app.yaml'
+
             - name: Deploy to App Engine
-              run: gcloud app deploy --quiet --format json app.yaml --image-url=us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/spotify-playlist-guard/spotify-playlist-guard-main:latest --promote
+              run: gcloud app deploy .gcp/app.yaml --quiet --format=json --promote --image-url=us-east1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/spotify-playlist-guard/spotify-playlist-guard-main:latest
