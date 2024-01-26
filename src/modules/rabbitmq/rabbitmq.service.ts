@@ -21,19 +21,18 @@ export class RabbitMQService {
         const classInstance = new RabbitMQService(url, queues);
         RabbitMQService.instance = classInstance;
 
-        await classInstance.start().then(() => {
-            classInstance.registerQueues().catch((error) => {
+        await classInstance
+            .start()
+            .then(() => classInstance.registerQueues())
+            .catch((error) => {
                 throw error;
             });
-        });
 
         return classInstance;
     }
 
     private async start() {
-        this.connection = await connect(this.url).catch((error) => {
-            throw error;
-        });
+        this.connection = await connect(this.url);
         this.channel = await this.connection.createChannel();
     }
 
