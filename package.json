@@ -5,8 +5,8 @@
     "main": "main.js",
     "scripts": {
         "build": "tsc",
-        "start": "node --require dotenv/config dist/main",
-        "dev": "nodemon --require dotenv/config src/main.ts",
+        "start": "node -r dotenv-expand/config dist/main",
+        "dev": "nodemon -r dotenv-expand/config src/main.ts",
         "lint:fix": "eslint \"src/**/*.ts\" --fix --max-warnings 0",
         "lint:check": "eslint \"src/**/*.ts\" --max-warnings 0",
         "enable-hooks": "husky install",
@@ -41,7 +41,8 @@
         "axios": "^0.26.0",
         "cors": "^2.8.5",
         "debug": "^4.3.4",
-        "dotenv": "^11.0.0",
+        "dotenv": "^16.4.1",
+        "dotenv-expand": "^10.0.0",
         "express": "^4.17.3",
         "node-cron": "^3.0.0",
         "spotify-web-api-node": "^5.0.2"
