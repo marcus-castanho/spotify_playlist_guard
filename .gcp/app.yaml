@@ -3,7 +3,7 @@ env: flex
 
 network:
     forwarded_ports:
-        - 80:8080
+        - 8080:8080
 
 env_variables:
     APP_URL: $APP_SECRET_APP_URL
