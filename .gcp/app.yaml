@@ -6,6 +6,7 @@ network:
         - 8080:8080
 
 env_variables:
+    PORT: $APP_SECRET_PORT
     APP_URL: $APP_SECRET_APP_URL
     API_URL: $APP_SECRET_API_URL
     API_CLIENT_ID: $APP_SECRET_API_CLIENT_ID
