@@ -12,7 +12,7 @@ export class ServerService {
         this.router = express.Router();
         this.setupMiddlewares();
         this.setupRoutes();
-        // this.listen(this.serverConfig.port);
+        this.listen(this.serverConfig.port);
     }
 
     setupMiddlewares() {
