@@ -9,6 +9,7 @@ import { AppService } from './modules';
             appInstance.startApp().then(() => {
                 logger('Application is running.');
             });
+            appInstance.serverService.listen(process.env.PORT);
         })
         .catch((error) => {
             logger('%j', {
