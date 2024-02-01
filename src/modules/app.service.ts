@@ -9,7 +9,7 @@ export class AppService {
 
     private consumerService: ConsumerService;
 
-    private serverService: ServerService;
+    serverService: ServerService;
 
     static getInstance = () => {
         if (!AppService.instance) {
