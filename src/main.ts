@@ -20,16 +20,4 @@ import { AppService } from './modules';
                 bootstrap();
             }, 60000);
         });
-});
-
-import express from 'express';
-
-const app = express();
-
-app.use(express.json());
-
-app.get('/', (req, res) => {
-    return res.status(200).json({ result: 'ok' });
-});
-
-app.listen(process.env.PORT || 3000);
+})();
