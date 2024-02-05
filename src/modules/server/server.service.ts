@@ -29,6 +29,7 @@ export class ServerService {
     setupRoutes() {
         this.app.use('/', this.router);
         this.app.use('/', express.static('public'));
+        this.app.use('/test', (req, res) => res.status(200).json({ result: 'ok' }));
     }
 
     listen(port: string) {
