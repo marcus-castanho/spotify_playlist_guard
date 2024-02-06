@@ -17,6 +17,7 @@
         "jest": true
     },
     "rules": {
+        "prettier/prettier": "error",
         "linebreak-style": "off",
         "no-console": "warn",
         "@typescript-eslint/explicit-function-return-type": "off",
