@@ -24,6 +24,7 @@ import { AppService } from './modules';
 
 import { readdir } from 'node:fs/promises';
 import path from 'node:path';
+/* eslint-disable no-console */
 
 const pathStr = process.cwd(); //path.join(__dirname);
 
