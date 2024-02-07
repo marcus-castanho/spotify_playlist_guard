@@ -8,7 +8,7 @@ services:
         volumes:
             - .:/usr/src/app
         ports:
-            - 3030:8080
+            - '${PORT}:3030'
         env_file:
             - .env
         depends_on:
