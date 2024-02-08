@@ -2,6 +2,8 @@
     "name": "spotify_playlist_guard",
     "version": "1.0.0",
     "description": "A bot guard for your collaborative playlist on Spotify",
+    "author": "Marcus",
+    "license": "MIT",
     "main": "main.js",
     "scripts": {
         "build": "tsc",
@@ -13,8 +15,9 @@
         "disable-hooks": "husky uninstall",
         "test": ""
     },
-    "author": "Marcus",
-    "license": "MIT",
+    "engines": {
+        "node": "18.*"
+    },
     "devDependencies": {
         "@types/amqplib": "^0.8.2",
         "@types/cors": "^2.8.12",
