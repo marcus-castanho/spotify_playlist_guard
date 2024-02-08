@@ -11,12 +11,12 @@ WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/package*.json ./
+COPY --from=build /usr/src/app/public ./public
 CMD [ "npm", "run", "dev" ]
 
 
 FROM node:18 AS production
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+ENV NODE_ENV=production
 WORKDIR /usr/src/app
 COPY package*.json ./
 COPY --from=build /usr/src/app/dist ./dist

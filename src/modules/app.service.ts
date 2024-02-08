@@ -1,5 +1,5 @@
 import { ConsumerService, RabbitMQService } from './rabbitmq';
-// import { makeBroker, makeConsumer } from './rabbitmq/factories';
+import { makeBroker, makeConsumer } from './rabbitmq/factories';
 import { makeServer, ServerService } from './server';
 
 export class AppService {
@@ -19,8 +19,8 @@ export class AppService {
     };
 
     async startAsyncModules() {
-        // this.rabbitMQService = await makeBroker();
-        // this.consumerService = await makeConsumer(this.rabbitMQService);
+        this.rabbitMQService = await makeBroker();
+        this.consumerService = await makeConsumer(this.rabbitMQService);
         return this;
     }
 
