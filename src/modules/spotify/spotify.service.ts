@@ -4,6 +4,8 @@ import { Credentials } from './@types';
 export class SpotifyService extends SpotifyWebApi {
     constructor(clientConfig: Credentials) {
         super(clientConfig);
+        // eslint-disable-next-line no-console
+        console.log({ clientConfig });
     }
 
     async setTokens(refreshToken: string) {
