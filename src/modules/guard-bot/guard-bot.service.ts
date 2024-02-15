@@ -8,7 +8,7 @@ import { TrackIdentifier } from '../spotify/@types';
 import { LoggerService } from '../logger';
 
 export class GuardBotService {
-    private cronJob: ScheduledTask;
+    private cronJob?: ScheduledTask;
 
     constructor(
         private readonly schedulerConfig: SchedulerConfig,
@@ -51,16 +51,20 @@ export class GuardBotService {
     }
 
     async runGuard(playlist: Playlist) {
-        const { id, allowed_userIds, owner, snapshot_id } = playlist;
+        const { id, spotify_id, allowed_userIds, owner, snapshot_id } =
+            playlist;
         const { refreshToken } = owner;
         await this.spotifyService.setTokens(refreshToken);
-        const upToDatePlaylist = await this.spotifyService.getPlaylistData(id);
+        const upToDatePlaylist = await this.spotifyService.getPlaylistData(
+            spotify_id,
+        );
         const upToDateSnapshotId = upToDatePlaylist.snapshot_id;
         const tracksList = upToDatePlaylist.tracks.items;
 
         if (snapshot_id !== upToDateSnapshotId) {
             await this.checkPlaylist(
                 id,
+                spotify_id,
                 allowed_userIds,
                 tracksList,
                 upToDateSnapshotId,
@@ -70,23 +74,25 @@ export class GuardBotService {
 
     async checkPlaylist(
         id: string,
+        spotify_id: string,
         allowedUsers: string[],
         tracks: SpotifyApi.PlaylistTrackObject[],
         upToDateSnapshotId: string,
     ) {
-        const { tracksToRemove, newTrackIdList } =
-            GuardBotService.getPlaylistsDiff(allowedUsers, tracks);
+        const { tracksToRemove } = GuardBotService.getPlaylistsDiff(
+            allowedUsers,
+            tracks,
+        );
 
         if (tracksToRemove.length > 0) {
             await this.spotifyService.removeTracksFromPlaylist(
-                id,
+                spotify_id,
                 tracksToRemove,
             );
         }
 
         await this.apiService.updatePlaylist(id, {
             snapshot_id: upToDateSnapshotId,
-            tracks: newTrackIdList,
         });
     }
 

@@ -1,3 +1,6 @@
+import { z } from 'zod';
+import { playlistSchema } from '../schemas';
+
 export interface User {
     country: string;
     display_name: string;
@@ -16,19 +19,4 @@ export interface User {
     expiresAt: Date;
 }
 
-export interface Playlist {
-    collaborative: boolean;
-    description: string;
-    external_url: string;
-    followers: number;
-    href: string;
-    id: string;
-    name: string;
-    owner: User;
-    public: boolean;
-    snapshot_id: string;
-    tracks: string[];
-    uri: string;
-    active: boolean;
-    allowed_userIds: string[];
-}
+export type Playlist = z.infer<typeof playlistSchema>;
