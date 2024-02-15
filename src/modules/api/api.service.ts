@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { Playlist } from './@types';
 import { routes as apiRoutes } from './config';
+import { validatePlaylistsSchema } from './validations';
 
 export class ApiClientService {
     constructor(
@@ -10,11 +11,12 @@ export class ApiClientService {
 
     async getActivePlaylists() {
         const { getAllActivePlaylists } = this.routes;
-        const playlists: Playlist[] = (
-            await this.httpClient.get(getAllActivePlaylists).catch((error) => {
+        const playlists = await this.httpClient
+            .get(getAllActivePlaylists)
+            .then((response) => validatePlaylistsSchema(response.data))
+            .catch((error) => {
                 throw error;
-            })
-        ).data;
+            });
 
         return playlists;
     }

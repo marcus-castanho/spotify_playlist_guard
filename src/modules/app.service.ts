@@ -5,11 +5,11 @@ import { makeServer, ServerService } from './server';
 export class AppService {
     private static instance?: AppService;
 
-    private rabbitMQService: RabbitMQService;
+    private rabbitMQService?: RabbitMQService;
 
-    private consumerService: ConsumerService;
+    private consumerService?: ConsumerService;
 
-    private serverService: ServerService;
+    private serverService?: ServerService;
 
     static getInstance = () => {
         if (!AppService.instance) {

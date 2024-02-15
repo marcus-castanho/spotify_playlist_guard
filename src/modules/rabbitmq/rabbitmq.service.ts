@@ -4,9 +4,9 @@ import { BrokerConfig } from './@types';
 export class RabbitMQService {
     private static instance?: RabbitMQService;
 
-    private connection: Connection;
+    private connection?: Connection;
 
-    private channel: Channel;
+    private channel?: Channel;
 
     private constructor(
         private readonly url: string,
@@ -39,17 +39,23 @@ export class RabbitMQService {
     private async registerQueues() {
         const { queues } = this;
         for (let i = 0; i < queues.length; i++) {
+            if (!this.channel) break;
             await this.channel.assertQueue(queues[i], { durable: false });
         }
     }
 
     publishInQueue(queue: string, message: string) {
+        if (!this.channel) return;
         this.channel.sendToQueue(queue, Buffer.from(message));
     }
 
     async consume(queue: string, callback: (message: Message) => void) {
+        if (!this.channel) return;
         await this.channel.consume(queue, (message) => {
+            if (!message) return;
             callback(message);
+
+            if (!this.channel) return;
             this.channel.ack(message);
         });
     }
