@@ -6,7 +6,7 @@
 # Spotify Playlist Guard
 This is a project of a bot guard for collaborative playlist on Spotify. Test the bot in action:
 - Use the [Test playlist](https://open.spotify.com/playlist/5wkdAzv8ZArH5cyvXQTRYe) by adding a song to it and wait for it to be removed once every minute;
-- Check if the bot is up and running accessing its [status webpage](https://spotify-playlist-guard.herokuapp.com/).
+- Check if the bot is up and running accessing its [status webpage](https://astute-sign-411023.uc.r.appspot.com/).
 
 ## Context
 
@@ -51,7 +51,7 @@ Each guard routine performed for a playlist is published and consumed by a messa
 -   [node-cron](https://github.com/node-cron/node-cron) for scheduling a cron job to execute the guard routine;
 -   [RabbitMQ](https://www.rabbitmq.com/) for message queuing of the routine using [amqplib](https://github.com/amqp-node/amqplib) as client;
 -   [Express](https://expressjs.com/) as web framework to expose a status endpoint of the application.
--   [Heroku](https://www.heroku.com/) as cloud server host;
+-   [Google App Engine](https://cloud.google.com/appengine) as cloud server host;
 
 Also , the tools used in the development environment:
 
@@ -102,7 +102,7 @@ docker-compose stop
 
 ### Run this app in your machine locally using only the DB container:
 
-3. Create a .env file based on the .env.example in this project and insert the values of the vars based on your development environment. 
+3. Create a .env file based on the .env.example in this project and insert the values of the vars based on your development environment.
 
 Note: **When running the the app locally, the RABBITMQ_HOST env var must be set to 'localhost'**;
 
