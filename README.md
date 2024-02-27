@@ -8,6 +8,11 @@ This is a project of a bot guard for collaborative playlist on Spotify. Test the
 - Use the [Test playlist](https://open.spotify.com/playlist/5wkdAzv8ZArH5cyvXQTRYe) by adding a song to it and wait for it to be removed once every minute;
 - Check if the bot is up and running accessing its [status webpage](https://astute-sign-411023.uc.r.appspot.com/).
 
+Also, please check the **other apps related to this project**:
+
+-   [Spotify Playlist Guard API](https://github.com/marcus-castanho/spotify-playlist-guard-api): An API for the Spotify Playlist Guard application;
+-   [Spotify Playlist Guard Website](https://github.com/marcus-castanho/spotify-playlist-guard-website): A website for the Spotify Playlist Guard application;
+
 ## Context
 
 Spotify defines playlists as collaborative, private and public. The collaborative status is given to playlists which users want to share with friends or trusty people. However, once the playlists is set to collaborative, any user with access to the URL that leads to that playlist is able to edit it, adding or deleing tracks. At the day of the publication of this project - 07/03/2022 - there is no official available way of limiting access to collaborative playlists.
