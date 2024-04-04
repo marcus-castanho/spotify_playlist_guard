@@ -54,9 +54,11 @@ Each guard routine performed for a playlist is published and consumed by a messa
 -   [Spotify Playlist Guard API](https://github.com/marcus-castanho/spotify-playlist-guard-api) to interact with the application data using [axios](https://axios-http.com/) as HTTP client;
 -   [Spotify Web API](https://developer.spotify.com/documentation/web-api/) with [spotify-web-api-node](https://github.com/thelinmichael/spotify-web-api-node) as client wrapper;
 -   [node-cron](https://github.com/node-cron/node-cron) for scheduling a cron job to execute the guard routine;
--   [RabbitMQ](https://www.rabbitmq.com/) for message queuing of the routine using [amqplib](https://github.com/amqp-node/amqplib) as client;
+-   [RabbitMQ](https://www.rabbitmq.com/) for message queuing of the routine using:
+    -   [amqplib](https://github.com/amqp-node/amqplib) as RabbitMQ client lib;
+    -   [CloudAMQP](https://www.cloudamqp.com/) as RabbitMQ cloud service;
 -   [Express](https://expressjs.com/) as web framework to expose a status endpoint of the application.
--   [Google App Engine](https://cloud.google.com/appengine) as cloud server host;
+-   [Render](https://render.com/) as cloud server host;
 
 Also , the tools used in the development environment:
 
