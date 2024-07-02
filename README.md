@@ -6,7 +6,7 @@
 # Spotify Playlist Guard
 This is a project of a bot guard for collaborative playlist on Spotify. Test the bot in action:
 - Use the [Test playlist](https://open.spotify.com/playlist/5wkdAzv8ZArH5cyvXQTRYe) by adding a song to it and wait for it to be removed once every minute;
-- Check if the bot is up and running accessing its [status webpage](https://astute-sign-411023.uc.r.appspot.com/).
+- Check if the bot is up and running accessing its [status webpage](https://spotify-playlist-guard.onrender.com).
 
 Also, please check the **other apps related to this project**:
 
